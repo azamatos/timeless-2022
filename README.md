@@ -39,7 +39,7 @@ $ "Docker Desktop Installer.exe" install
 
 ```bash
 # watch mode
-$ npm run start:dev
+$ docker-compose up -d
 ```
 
 # Test
