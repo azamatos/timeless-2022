@@ -1,0 +1,33 @@
+type Task {
+  id: Int!
+  name: String!
+  isCompleted: Boolean!
+  TaskList: BasicTaskList!
+}
+
+type BasicTaskList {
+  id: Int!
+  name: String!
+}
+
+input CreateTaskInput {
+  name: String!
+  taskListId: Int!
+  isCompleted: Boolean
+}
+
+input UpdateTaskInput {
+  id: Int!
+  name: String
+  isCompleted: Boolean
+}
+
+type Query {
+  getTask(id: Int!): Task
+}
+
+type Mutation {
+  createTask(createTaskInput: CreateTaskInput!): Task
+  updateTask(updateTaskInput: UpdateTaskInput!): Task
+  removeTask(id: Int!): Task
+}

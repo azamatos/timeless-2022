@@ -1,0 +1,29 @@
+type User {
+  id: Int!
+  login: String!
+  password: String!
+  task_list: [TaskList!]!
+}
+
+input UserInput {
+  login: String!
+  password: String!
+}
+
+type LoginResponse {
+  token: String!
+}
+
+type UserResponse {
+  id: Int!
+  login: String!
+}
+
+type Query {
+  login(loginInput: UserInput): LoginResponse!
+}
+
+type Mutation {
+  register(registerInput: UserInput!): UserResponse
+  updatePassword(updateUserInput: UserInput!): UserResponse
+}
