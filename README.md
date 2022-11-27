@@ -28,7 +28,7 @@ $ sudo hdiutil detach /Volumes/Docker
 
 ## Windows
 
-[Download Docker Destop for MacOS](https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe)
+[Download Docker Destop for Windows](https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe)
 
 After downloading Docker Desktop Installer.exe, run the following command in a terminal to install Docker Desktop:
 ```bash
