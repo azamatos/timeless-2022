@@ -37,6 +37,8 @@ $ "Docker Desktop Installer.exe" install
 
 # Running the app
 
+Before starting container dont forget to rename .env-example => .env
+
 ```bash
 # watch mode
 $ docker-compose up -d
