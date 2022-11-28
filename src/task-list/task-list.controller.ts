@@ -25,13 +25,16 @@ import {
 // project imports
 import { TaskListService } from './task-list.service';
 
-// utils
-import {
-  taskListSchema,
-  taskListBody,
-  taskListsSchema,
-  paramSchema,
-} from '../utils/swaggerData';
+// configs
+import { GetOthersTaskListsResponse } from './configs/get-others-task-lists-response.config';
+import { GetUserTaskListsResponse } from './configs/get-user-task-lists-response.config';
+import { CreateTaskListResponse } from './configs/create-task-list-response.config';
+import { RemoveTaskListResponse } from './configs/remove-task-list-response.config';
+import { UpdateTaskListResponse } from './configs/update-task-list-response.config';
+import { GetTaskListResponse } from './configs/get-task-list-response.config';
+import { UpdateTaskListBody } from './configs/update-task-list-body.config';
+import { CreateTaskListBody } from './configs/create-task-list-body.config';
+import { TaskListParam } from './configs/task-list-param.config';
 
 // types
 import { CreateTaskList } from './dto/create-task-list';
@@ -44,9 +47,9 @@ export class TaskListController {
 
   @Post('create')
   @ApiOperation({ summary: 'Craete a task list' })
-  @ApiBody(taskListBody)
+  @ApiBody(CreateTaskListBody)
   @ApiBearerAuth('access-token')
-  @ApiResponse(taskListSchema)
+  @ApiResponse(CreateTaskListResponse)
   @UsePipes(ValidationPipe)
   create(@Req() request: Request, @Body() createDto: CreateTaskList) {
     const { authorization } = request.headers;
@@ -55,9 +58,9 @@ export class TaskListController {
 
   @Put('update')
   @ApiOperation({ summary: 'Update a task list' })
-  @ApiBody(taskListBody)
+  @ApiBody(UpdateTaskListBody)
   @ApiBearerAuth('access-token')
-  @ApiResponse(taskListSchema)
+  @ApiResponse(UpdateTaskListResponse)
   @UsePipes(ValidationPipe)
   update(@Req() request: Request, @Body() updateDto: UpdateTaskList) {
     const { authorization } = request.headers;
@@ -67,7 +70,7 @@ export class TaskListController {
   @Get('mine')
   @ApiOperation({ summary: 'Return user task lists' })
   @ApiBearerAuth('access-token')
-  @ApiResponse(taskListsSchema)
+  @ApiResponse(GetUserTaskListsResponse)
   @UsePipes(ValidationPipe)
   getMyLists(@Req() request: Request) {
     const { authorization } = request.headers;
@@ -77,7 +80,7 @@ export class TaskListController {
   @Get('other')
   @ApiOperation({ summary: 'Return others task lists' })
   @ApiBearerAuth('access-token')
-  @ApiResponse(taskListsSchema)
+  @ApiResponse(GetOthersTaskListsResponse)
   @UsePipes(ValidationPipe)
   getOtherLists(@Req() request: Request) {
     const { authorization } = request.headers;
@@ -86,9 +89,9 @@ export class TaskListController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Return a task list by id' })
-  @ApiParam(paramSchema)
+  @ApiParam(TaskListParam)
   @ApiBearerAuth('access-token')
-  @ApiResponse(taskListSchema)
+  @ApiResponse(GetTaskListResponse)
   @UsePipes(ValidationPipe)
   getList(@Req() request: Request, @Param('id') id: number) {
     const { authorization } = request.headers;
@@ -97,9 +100,9 @@ export class TaskListController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Remove a task list by id' })
-  @ApiParam(paramSchema)
+  @ApiParam(TaskListParam)
   @ApiBearerAuth('access-token')
-  @ApiResponse(taskListSchema)
+  @ApiResponse(RemoveTaskListResponse)
   @UsePipes(ValidationPipe)
   deleteList(@Req() request: Request, @Param('id') id: number) {
     const { authorization } = request.headers;

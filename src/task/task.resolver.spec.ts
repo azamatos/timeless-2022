@@ -9,7 +9,6 @@ import { TaskResolver } from './task.resolver';
 import { TaskService } from './task.service';
 
 // utils
-import { mockTask, mockTaskList } from '../utils/mockData';
 import { getRandomLogin } from '../utils/randomGenerator';
 
 // types
@@ -41,8 +40,11 @@ describe('TaskResolver', () => {
     };
 
     taskList = await taskListService.create(token, {
-      ...mockTaskList,
       name: newUser.login,
+      create: true,
+      read: true,
+      update: true,
+      delete: true,
     });
   });
 
@@ -62,7 +64,7 @@ describe('TaskResolver', () => {
   describe('create a task ', () => {
     it('should return task data', async () => {
       newTask = await resolver.create(req, {
-        name: mockTask.name,
+        name: 'Clean the bathroom',
         taskListId: taskList.id,
       });
 

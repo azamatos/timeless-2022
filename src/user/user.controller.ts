@@ -13,15 +13,14 @@ import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
 // project imports
 import { UserService } from './user.service';
 
-// utils
-import {
-  registerSchema,
-  loginSchema,
-  updateSchema,
-} from '../utils/swaggerData';
+// configs
+import { UpdatePasswordResponse } from './configs/update-password-response.config';
+import { RegisterUserResponse } from './configs/register-user-response.config';
+import { LoginUserResponse } from './configs/login-user-response.config';
 
 // types
 import { UserData } from './dto/userData';
+import { UserBody } from './configs/user-body.config';
 
 @Controller('/')
 @ApiTags('User')
@@ -30,10 +29,8 @@ export class UserController {
 
   @Post('register')
   @ApiOperation({ summary: 'Register a user' })
-  @ApiBody({
-    schema: registerSchema.schema,
-  })
-  @ApiResponse(registerSchema)
+  @ApiBody(UserBody)
+  @ApiResponse(RegisterUserResponse)
   @UsePipes(ValidationPipe)
   register(@Body() registerInput: UserData) {
     return this.userService.register(registerInput);
@@ -41,10 +38,8 @@ export class UserController {
 
   @Post('login')
   @ApiOperation({ summary: 'Logging in user' })
-  @ApiBody({
-    schema: registerSchema.schema,
-  })
-  @ApiResponse(loginSchema)
+  @ApiBody(UserBody)
+  @ApiResponse(LoginUserResponse)
   @UsePipes(ValidationPipe)
   login(@Body() loginINput: UserData) {
     return this.userService.login(loginINput);
@@ -52,10 +47,8 @@ export class UserController {
 
   @Put('user/update')
   @ApiOperation({ summary: 'Updating user password' })
-  @ApiBody({
-    schema: updateSchema.schema,
-  })
-  @ApiResponse(updateSchema)
+  @ApiBody(UserBody)
+  @ApiResponse(UpdatePasswordResponse)
   @UsePipes(ValidationPipe)
   updatePassword(@Body() updateUserInput: UserData) {
     return this.userService.updatePassword(updateUserInput);

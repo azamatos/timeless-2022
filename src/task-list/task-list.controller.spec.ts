@@ -9,7 +9,6 @@ import { UserService } from '../user/user.service';
 
 // utils
 import { getRandomLogin } from '../utils/randomGenerator';
-import { mockTaskList } from '../utils/mockData';
 
 // types
 import { MutationTaskList } from 'src/types/graphql';
@@ -49,7 +48,13 @@ describe('TaskListController', () => {
 
   describe('create a task list', () => {
     it('should return task list data', async () => {
-      taskList = await taskListController.create(req, mockTaskList);
+      taskList = await taskListController.create(req, {
+        name: 'Home Duty',
+        create: true,
+        read: true,
+        update: true,
+        delete: true,
+      });
 
       jest
         .spyOn(taskListService, 'create')

@@ -7,7 +7,6 @@ import { UserService } from '../user/user.service';
 
 // utils
 import { getRandomLogin } from '../utils/randomGenerator';
-import { mockTaskList } from '../utils/mockData';
 
 // types
 import { TaskList } from '../types/graphql';
@@ -43,7 +42,13 @@ describe('TaskListService', () => {
 
   describe('create task list', () => {
     it('create and return task list with id', async () => {
-      taskList = await service.create(token, mockTaskList);
+      taskList = await service.create(token, {
+        name: 'Resolve conflicts',
+        create: true,
+        read: true,
+        update: true,
+        delete: true,
+      });
       expect(taskList).toEqual(
         expect.objectContaining({
           id: expect.any(Number),

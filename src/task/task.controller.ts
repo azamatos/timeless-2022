@@ -25,13 +25,14 @@ import {
 // project imports
 import { TaskService } from './task.service';
 
-// utils
-import {
-  createTaskBody,
-  updateTaskBody,
-  taskResponse,
-  paramSchema,
-} from '../utils/swaggerData';
+// configs
+import { RemoveTaskResponse } from './configs/remove-task-response.config';
+import { CreateTaskResponse } from './configs/create-task-response.config';
+import { UpdateTaskResponse } from './configs/update-task-response.config';
+import { GetTaskResponse } from './configs/get-task-response.config';
+import { UpdateTaskBody } from './configs/update-task-body.config';
+import { CreateTaskBody } from './configs/create-task-body.config';
+import { TaskParam } from './configs/task-param.config';
 
 // types
 import { CreateTask } from './dto/create-task';
@@ -44,9 +45,9 @@ export class TaskController {
 
   @Post('create')
   @ApiOperation({ summary: 'Create a task' })
-  @ApiBody(createTaskBody)
+  @ApiBody(CreateTaskBody)
   @ApiBearerAuth('access-token')
-  @ApiResponse(taskResponse('Creates and returns task'))
+  @ApiResponse(CreateTaskResponse)
   @UsePipes(ValidationPipe)
   create(@Req() request: Request, @Body() createDto: CreateTask) {
     const { authorization } = request.headers;
@@ -55,9 +56,9 @@ export class TaskController {
 
   @Put('update')
   @ApiOperation({ summary: 'Update a task' })
-  @ApiBody(updateTaskBody)
+  @ApiBody(UpdateTaskBody)
   @ApiBearerAuth('access-token')
-  @ApiResponse(taskResponse('Updates and returns task'))
+  @ApiResponse(UpdateTaskResponse)
   @UsePipes(ValidationPipe)
   update(@Req() request: Request, @Body() updateDto: UpdateTask) {
     const { authorization } = request.headers;
@@ -66,9 +67,9 @@ export class TaskController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Get a task by id' })
-  @ApiParam(paramSchema)
+  @ApiParam(TaskParam)
   @ApiBearerAuth('access-token')
-  @ApiResponse(taskResponse('Find task by id and returns it'))
+  @ApiResponse(GetTaskResponse)
   @UsePipes(ValidationPipe)
   getTask(@Req() request: Request, @Param('id') id: number) {
     const { authorization } = request.headers;
@@ -77,9 +78,9 @@ export class TaskController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Remove a task by id' })
-  @ApiParam(paramSchema)
+  @ApiParam(TaskParam)
   @ApiBearerAuth('access-token')
-  @ApiResponse(taskResponse('Removes task by id and returns it'))
+  @ApiResponse(RemoveTaskResponse)
   @UsePipes(ValidationPipe)
   remove(@Req() request: Request, @Param('id') id: number) {
     const { authorization } = request.headers;

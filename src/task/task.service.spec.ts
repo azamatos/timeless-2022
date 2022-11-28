@@ -7,7 +7,6 @@ import { UserService } from '../user/user.service';
 import { TaskService } from './task.service';
 
 // utils
-import { mockTask, mockTaskList } from '../utils/mockData';
 import { getRandomLogin } from '../utils/randomGenerator';
 
 // types
@@ -33,8 +32,11 @@ describe('TaskService', () => {
     token = (await userService.login(newUser)).token;
 
     taskList = await taskListService.create(token, {
-      ...mockTaskList,
       name: newUser.login,
+      create: true,
+      read: true,
+      update: true,
+      delete: true,
     });
   });
 
@@ -53,7 +55,7 @@ describe('TaskService', () => {
   describe('create task', () => {
     it('create and return task with id', async () => {
       newTask = await service.create(token, {
-        name: mockTask.name,
+        name: 'Wash the floor',
         taskListId: taskList.id,
       });
       expect(newTask).toEqual(
